@@ -64,18 +64,29 @@ const images = [
       },
     ];
     const galleryEl = document.querySelector('.gallery');
+    const strForHtml = images
+    .map(
+        ({ preview, original, description }) =>
+          `<li class="gallery-item">
+          <a class="gallery-link" href=${original}>
+            <img
+              class="gallery-image"
+              src=${preview}
+              data-source=${original}
+              alt=${description}
+            />
+          </a>
+        </li>`
+      )
+      .join('');
+    galleryEl.insertAdjacentHTML("beforeend",strForHtml);
     console.log(galleryEl);
-    const strForHtml = images.map(image => {
-    `<li class="gallery-item">
-    <a class="gallery-link" href='${image.original}'>
-      <img
-        class="gallery-image"
-        src= '${image.preview}'
-        data-source= '${image.original}'
-        alt= '${image.description}'
-      />
-    </a>
-  </li>`
-    });//.join('');
-    console.log(strForHtml);
-    galleryEl.innerHTML = strForHtml; 
+    galleryEl.addEventListener('click',takeLinkofImg);
+    function takeLinkofImg(event) {
+        event.preventDefault();
+       if(event.target.nodeName !== 'IMG') {
+            return;
+        }
+        console.log(event.target.dataset.source);
+    };
+    
