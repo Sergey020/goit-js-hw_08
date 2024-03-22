@@ -88,5 +88,14 @@ const images = [
             return;
         }
         console.log(event.target.dataset.source);
+        const instance = basicLightbox.create(`
+<div class="modal">
+<img src=${event.target.dataset.source} width="800" height="600">
+</div>
+`)
+
+instance.show()
     };
-    
+
+//import * as basicLightbox from 'basiclightbox'
+ 
